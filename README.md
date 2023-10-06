@@ -1,17 +1,11 @@
-<!--
- * @Author: wupeiwen <javapeiwen2010@gmail.com>
- * @Date: 2023-07-11 18:39:28
- * @LastEditors: wupeiwen <javapeiwen2010@gmail.com>
- * @LastEditTime: 2023-07-11 18:50:22
- * @FilePath: /python-download-tile/readme.md
- * @Description: 说明文件
--->
-## 下载依赖
-```
-pip3 install -r requirements.txt
-```
+## 项目说明
+
+搭建中，主要收集一些常见数据集处理的代码，整合到一起。
 
 ## 更改配置
+
+谷歌图像下载
+
 在`main.py`中，更改query参数
 ```
     # 配置信息
