@@ -1,11 +1,11 @@
-"""
+'''
 Author: wupeiwen <javapeiwen2010@gmail.com>
 Date: 2023-07-11 18:05:51
 LastEditors: wupeiwen <javapeiwen2010@gmail.com>
 LastEditTime: 2023-07-11 18:50:15
 FilePath: /python-download-tile/main.py
 Description: 瓦片计算与下载
-"""
+'''
 import os
 import aiohttp
 import math
@@ -45,10 +45,10 @@ def query_tiles():
     query = {
         # 图层ID
         'id': 47963,
-        # 目标区域的BBOX (minX, minY, maxX, maxY) ==> 左下右上
-        'bbox': '118.366930, 29.840939, 118.472644, 29.915380',
+        # 目标区域的BBOX (minX, minY, maxX, maxY)
+        'bbox': '108.964882,34.487270,109.062880,34.574523',
         # 地图缩放等级，最大为18级
-        'z': 18
+        'z': 17
     }
 
     TILE_URL = f"https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/GoogleMapsCompatible/MapServer/tile/{query['id']}"
@@ -101,6 +101,5 @@ def query_tiles():
     print(f"Total tiles: {total_count}, cached tiles: {cached_count}")
 
 
-if __name__ == '__main__':
-    # 运行
-    query_tiles()
+# 运行
+query_tiles()
