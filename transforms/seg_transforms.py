@@ -431,7 +431,7 @@ class SegResize(object):
 
 class SegColorJitter(object):
     """
-    随机改变图像的亮度，对比度和饱和度。
+    随机改变图像的亮度，对比度和饱和度。目前选项默认非负
 
     Args:
         brightness (float or tuple of float (min, max)): How much to jitter brightness.
@@ -485,18 +485,22 @@ class SegColorJitter(object):
         transforms = []
 
         if brightness is not None:
+            # 亮度，原图为1，越大亮度越高，不可小于等于0。
             brightness_factor = random.uniform(brightness[0], brightness[1])
             transforms.append(Lambda(lambda img: F.adjust_brightness(img, brightness_factor)))
 
         if contrast is not None:
+            # 对比度，原图为1，绝对值越小对比度越低，可以为负，为0则颜色无差别。
             contrast_factor = random.uniform(contrast[0], contrast[1])
             transforms.append(Lambda(lambda img: F.adjust_contrast(img, contrast_factor)))
 
         if saturation is not None:
+            # 饱和度，原图为1，为0变成灰白图。
             saturation_factor = random.uniform(saturation[0], saturation[1])
             transforms.append(Lambda(lambda img: F.adjust_saturation(img, saturation_factor)))
 
         if hue is not None:
+            # 色调，调整范围(-0.5， 0.5)，原图为0
             hue_factor = random.uniform(hue[0], hue[1])
             transforms.append(Lambda(lambda img: F.adjust_hue(img, hue_factor)))
 
