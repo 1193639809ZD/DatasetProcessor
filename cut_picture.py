@@ -71,7 +71,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Crop Remote Sense Datasets")
     parser.add_argument('--crop_size', type=int, default=256)
     parser.add_argument('--stride', type=int, default=256)
-    parser.add_argument('--dataset_root', default=Path(r'D:\datasets\yq-tech\data'))
+    parser.add_argument('--dataset_root', default=Path(r'D:\datasets\yq-tech\DeepGlobe'))
     args = parser.parse_args()
 
     # 设置输出路径，并判断路径是否存在，不存在就创建
