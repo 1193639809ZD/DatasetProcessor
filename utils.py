@@ -22,6 +22,13 @@ def cut_mask(image, mask, output):
 
 
 def to_png(image_dir, output_dir):
+    """
+    功能：文件夹的图像转成png格式
+
+    :param image_dir:
+    :param output_dir:
+    :return:
+    """
     data = Path(image_dir)
     output = Path(output_dir)
     image_list = list(data.glob('*'))

@@ -21,6 +21,10 @@ if __name__ == '__main__':
         (128, 128, 0): 8,  # 草地
         (0, 0, 0): 0,  # 未识别
     }
+    temp_map = {
+        0: 0,
+        255: 1
+    }
     # 指定调色板颜色
     al_map = [
         (0, 0, 0),  # 黑色 未识别
@@ -48,8 +52,8 @@ if __name__ == '__main__':
     ]
 
     # 设置输入和输出文件夹路径
-    input_folder = Path(r'D:\datasets\yq-tech\DeepGlobe\origin\tem[\mask_temp')
-    output_folder = Path(r'D:\datasets\yq-tech\DeepGlobe\origin\tem[\temp')
+    input_folder = Path(r'D:\datasets\Massachusetts_Dataset\road mask')
+    output_folder = Path(r'D:\datasets\Massachusetts_Dataset\temp')
 
     # 确保输出文件夹存在
     output_folder.mkdir(parents=True, exist_ok=True)
@@ -58,8 +62,8 @@ if __name__ == '__main__':
 
     for mask in tqdm(mask_list):
         mask_data = np.asarray(Image.open(mask))
-        new_mask = mask_deal(mask_data, label_map, background=9)
+        new_mask = mask_deal(mask_data, temp_map, background=9)
         save_path = output_folder.joinpath(mask.name)
-        save_colored_mask(new_mask, save_path, al_map)
+        save_colored_mask(new_mask, save_path)
 
     print("所有图片处理完成！")
