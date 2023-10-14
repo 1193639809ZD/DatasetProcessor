@@ -48,8 +48,8 @@ if __name__ == '__main__':
     ]
 
     # 设置输入和输出文件夹路径
-    input_folder = Path(r'C:\Users\eveLe\Downloads\process_data\mask')
-    output_folder = Path(r'C:\Users\eveLe\Downloads\process_data\temp')
+    input_folder = Path(r'D:\datasets\yq-tech\DeepGlobe\origin\tem[\mask_temp')
+    output_folder = Path(r'D:\datasets\yq-tech\DeepGlobe\origin\tem[\temp')
 
     # 确保输出文件夹存在
     output_folder.mkdir(parents=True, exist_ok=True)

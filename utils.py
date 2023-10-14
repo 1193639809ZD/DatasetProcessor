@@ -15,7 +15,7 @@ def cut_mask(image, mask, output):
     # 修改mask
     locations = img_data == [255, 255, 255]
     locations = np.all(locations, axis=-1)
-    mask_data[locations] = [0, 0, 0, 0]
+    mask_data[locations] = [0, 0, 0]
     # 保存
     mask_i = Image.fromarray(mask_data)
     mask_i.save(output)

@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 
 if __name__ == '__main__':
-    root = Path(r'C:\Users\eveLe\Downloads\process_data\mask')
+    root = Path(r'D:\datasets\Massachusetts_Dataset\al_mask')
     mask_list = list(root.glob('*'))
     for mask in tqdm(mask_list):
         mask_data = np.asarray(Image.open(mask))[:, :, :3]

@@ -69,9 +69,9 @@ def crop_image_mask(image_dir, mask_dir, image_path, mask_path, crop_size, strid
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Crop Remote Sense Datasets")
-    parser.add_argument('--crop_size', type=int, default=256)
-    parser.add_argument('--stride', type=int, default=256)
-    parser.add_argument('--dataset_root', default=Path(r'D:\datasets\yq-tech\DeepGlobe'))
+    parser.add_argument('--crop_size', type=int, default=1250)
+    parser.add_argument('--stride', type=int, default=1250)
+    parser.add_argument('--dataset_root', default=Path(r'D:\datasets\yq-tech\iaild\origin'))
     args = parser.parse_args()
 
     # 设置输出路径，并判断路径是否存在，不存在就创建
@@ -81,8 +81,8 @@ if __name__ == '__main__':
     temp_mask_dir.mkdir(parents=True, exist_ok=True)
 
     # 获取图像和mask列表，并排序
-    image_list = natsorted(list(args.dataset_root.glob('image\*.png')))
-    mask_list = natsorted(list(args.dataset_root.glob('mask\*.png')))
+    image_list = natsorted(list(args.dataset_root.glob('image\*')))
+    mask_list = natsorted(list(args.dataset_root.glob('mask\*')))
     print("Length of image :", len(image_list))
     print("Length of mask :", len(mask_list))
     assert len(image_list) == len(mask_list)
