@@ -52,8 +52,8 @@ if __name__ == '__main__':
     ]
 
     # 设置输入和输出文件夹路径
-    input_folder = Path(r'D:\datasets\Massachusetts_Dataset\road mask')
-    output_folder = Path(r'D:\datasets\Massachusetts_Dataset\temp')
+    input_folder = Path(r'D:\datasets\yq-tech\Wayback\almask')
+    output_folder = Path(r'D:\datasets\yq-tech\Wayback\mask')
 
     # 确保输出文件夹存在
     output_folder.mkdir(parents=True, exist_ok=True)
@@ -62,8 +62,8 @@ if __name__ == '__main__':
 
     for mask in tqdm(mask_list):
         mask_data = np.asarray(Image.open(mask))
-        new_mask = mask_deal(mask_data, temp_map, background=9)
+        new_mask = mask_deal(mask_data, label_map, background=9)
         save_path = output_folder.joinpath(mask.name)
-        save_colored_mask(new_mask, save_path)
+        save_colored_mask(new_mask, save_path, al_map)
 
     print("所有图片处理完成！")

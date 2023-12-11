@@ -6,19 +6,13 @@ import numpy as np
 from PIL import Image
 from natsort import natsorted
 from tqdm import tqdm
+from utils import save_colored_mask
 
 
 def load_image(file_path):
     img = Image.open(file_path)
     data = np.asarray(img, dtype="int32")
     return data
-
-
-def save_colored_mask(mask, save_path):
-    mask = Image.fromarray(mask.astype(np.uint8), mode="P")
-    colormap = imgviz.label_colormap()
-    mask.putpalette(colormap.flatten())
-    mask.save(save_path)
 
 
 # 返回坐标轴切割的起点坐标
@@ -37,6 +31,19 @@ def start_points(size, patch_size, stride=256):
 
 
 def crop_image_mask(image_dir, mask_dir, image_path, mask_path, crop_size, stride):
+    # 指定调色板颜色
+    al_map = [
+        (0, 0, 0),  # 黑色 未识别
+        (0, 128, 0),  # 林地
+        (128, 0, 0),  # 种植地
+        (96, 0, 0),  # 水体
+        (0, 0, 255),  # 建筑物
+        (128, 0, 128),  # 道路
+        (191, 0, 0),  # 硬化地表
+        (128, 128, 128),  # 裸地
+        (128, 128, 0),  # 草地
+        (105, 105, 105)  # 浅灰色 其他
+    ]
     # 图像名称
     img_id = mask_path.stem
 
@@ -61,17 +68,20 @@ def crop_image_mask(image_dir, mask_dir, image_path, mask_path, crop_size, strid
                 if num_clas_pixel[0] / num_clas_pixel.sum() > 0.99:
                     continue
                 # 保存图片，mask以调色板模式保存
-                save_colored_mask(new_mask, mask_dir.joinpath(f'{img_id}_{count}.png'))
+                save_colored_mask(new_mask, mask_dir.joinpath(f'{img_id}_{count}.png'), al_map)
                 new_image = Image.fromarray(new_image)
                 new_image.save("{}/{}_{}.png".format(image_dir, img_id, count))
                 count = count + 1
 
 
+
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Crop Remote Sense Datasets")
-    parser.add_argument('--crop_size', type=int, default=1250)
-    parser.add_argument('--stride', type=int, default=1250)
-    parser.add_argument('--dataset_root', default=Path(r'D:\datasets\yq-tech\iaild\origin'))
+    parser.add_argument('--crop_size', type=int, default=256)
+    parser.add_argument('--stride', type=int, default=256)
+    parser.add_argument('--dataset_root', default=Path(r'D:\datasets\yq-tech\Wayback'))
     args = parser.parse_args()
 
     # 设置输出路径，并判断路径是否存在，不存在就创建
@@ -81,8 +91,8 @@ if __name__ == '__main__':
     temp_mask_dir.mkdir(parents=True, exist_ok=True)
 
     # 获取图像和mask列表，并排序
-    image_list = natsorted(list(args.dataset_root.glob('image\*')))
-    mask_list = natsorted(list(args.dataset_root.glob('mask\*')))
+    image_list = natsorted(list(args.dataset_root.glob('origin\image\*')))
+    mask_list = natsorted(list(args.dataset_root.glob('origin\mask\*')))
     print("Length of image :", len(image_list))
     print("Length of mask :", len(mask_list))
     assert len(image_list) == len(mask_list)

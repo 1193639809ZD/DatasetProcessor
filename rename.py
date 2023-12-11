@@ -8,10 +8,10 @@ from tqdm import tqdm
 """
 if __name__ == '__main__':
     # 获取文件列表
-    root = Path(r'D:\datasets\Massachusetts_Dataset\origin\temp')
+    root = Path(r'D:\datasets\DeepGlobe_Road_Extraction_Dataset\temp\temp')
     file_list = natsorted(list(root.glob('*')))
     # 起始索引
-    start_idx = 1101
+    start_idx = 3601
     for file in tqdm(file_list):
         image_path = root.joinpath(f'{start_idx}.png')
         file.replace(image_path)

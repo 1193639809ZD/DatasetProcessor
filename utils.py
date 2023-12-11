@@ -8,17 +8,19 @@ import random
 
 
 # 切除图像空白区域的mask标签
-def cut_mask(image, mask, output):
+def cut_mask(image, mask, output, color_map):
     # 读取数据
     img_data = np.asarray(Image.open(image))
     mask_data = np.asarray(Image.open(mask)).copy()
     # 修改mask
     locations = img_data == [255, 255, 255]
     locations = np.all(locations, axis=-1)
-    mask_data[locations] = [0, 0, 0]
+    mask_data[locations] = 0
+    # mask_data[locations] = [0, 0, 0]
     # 保存
-    mask_i = Image.fromarray(mask_data)
-    mask_i.save(output)
+    save_colored_mask(mask_data, output, color_map)
+    # mask_i = Image.fromarray(mask_data)
+    # mask_i.save(output)
 
 
 def to_png(image_dir, output_dir):
